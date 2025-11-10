@@ -129,6 +129,8 @@
 
       home.packages = [ setupPackage ];
 
+      home.file.".local/share/gpu-drivers".source = drivers;
+
       home.activation.checkExistingGpuDrivers =
         let
           # Absolute path is needed for use with sudo which doesn't have the user's
