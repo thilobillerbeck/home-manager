@@ -97,11 +97,9 @@
         nvidia_x11 = nvidia; # Only used if addNvidia is enabled
       };
 
-      drivers_dir = ".gpu-drivers";
-
       setupPackage = cfg.packages.callPackage ./setup {
         inherit (cfg) nixStateDirectory;
-        nonNixosGpuEnv = "${config.home.homeDirectory}/${drivers_dir}";
+        nonNixosGpuEnv = "/home/${config.machine.username}/.local/share/gpu-drivers";
       };
 
     in
@@ -131,7 +129,7 @@
 
       home.packages = [ setupPackage ];
 
-      home.file.drivers_dir.source = drivers;
+      home.file.".local/share/gpu-drivers".source = drivers;
 
       home.activation.checkExistingGpuDrivers =
         let
