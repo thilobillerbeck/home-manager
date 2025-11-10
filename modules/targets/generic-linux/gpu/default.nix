@@ -101,7 +101,7 @@
 
       setupPackage = cfg.packages.callPackage ./setup {
         inherit (cfg) nixStateDirectory;
-        nonNixosGpuEnv = "${cfg.home.homeDirectory}/${drivers_dir}";
+        nonNixosGpuEnv = "${cfg.homedir}/${drivers_dir}";
       };
 
     in
