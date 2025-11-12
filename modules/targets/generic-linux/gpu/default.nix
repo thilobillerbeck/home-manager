@@ -97,9 +97,11 @@
         nvidia_x11 = nvidia; # Only used if addNvidia is enabled
       };
 
+      driverPath = "/home/${config.machine.username}/.local/share/gpu-drivers";
+
       setupPackage = cfg.packages.callPackage ./setup {
         inherit (cfg) nixStateDirectory;
-        nonNixosGpuEnv = "/home/${config.machine.username}/.local/share/gpu-drivers";
+        nonNixosGpuEnv = driverPath;
       };
 
     in
