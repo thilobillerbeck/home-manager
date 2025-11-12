@@ -5,8 +5,11 @@ set -e
 # Install the systemd service file and ensure that the store path won't be
 # garbage-collected as long as it's installed.
 unit_path=/etc/systemd/system/non-nixos-gpu.service
-ln -sf @@resources@@/non-nixos-gpu.service "$unit_path"
-ln -sf "$unit_path" "@@statedir@@"/gcroots/non-nixos-gpu.service
+# Since some distros dont see as service linked from nix store at the time they evaluate
+# the unit files, we copy it there instead of symlinking it.
+cp @@resources@@/non-nixos-gpu.service "$unit_path"
+# TODO: make this a conditional step based on whether the system supports it
+# ln -sf "$unit_path" "@@statedir@@"/gcroots/non-nixos-gpu.service
 
 systemctl daemon-reload
 systemctl enable non-nixos-gpu.service
